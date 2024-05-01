@@ -37,15 +37,20 @@ function Card({ role, location, salary, details, link, expYear }: any) {
         <div>About Company:</div>
         <div className="font-bold text-sm">About us</div>
         <div>
-          <div className="text-sm font-extralight">{details}</div>
-          <a href={link} target="_blank">
-            <div className="flex justify-center text-[#4943db] cursor-pointer">
+          <div className="text-sm font-extralight  ">
+            {details.slice(0, details.length / 2)}
+            <div className="blur-sm select-none">
+            {details.slice(details.length/1.2)}
+            </div>
+          </div>
+          <a href={link} target="_blank" className="">
+            <div className="flex justify-center z-30 -mt-2 text-[#4943db] cursor-pointer">
               View Job
             </div>
           </a>
         </div>
         <div className="text-sm font-medium pt-4 text-gray-500">
-            Minimum Experience
+          Minimum Experience
         </div>
         <div>{expYear}</div>
       </div>
