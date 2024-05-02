@@ -12,7 +12,7 @@ function Home() {
   const [minExp, setMinExp] = useState("");
   const [minBasePay, setMinBasePay] = useState("");
   const [work, setWork] = useState("");
-  const [companyName, setCompanyName] = useState("");
+  // const [ setCompanyName] = useState("");
 
   const handleWork = (work: any) => {
     setWork(work);
@@ -31,9 +31,9 @@ function Home() {
     setMinExp(minExp);
   };
 
-  const handleCompanyNameChange = (value: string) => {
+  const handleCompanyNameChange = () => {
     // Receive input value from SearchBar
-    setCompanyName(value);
+    // setCompanyName(value);
   };
 
   // Array of company names
