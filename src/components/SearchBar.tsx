@@ -77,7 +77,7 @@ function SearchBar({ onRoleChange, onExpChange, onBasePay, onWork }: any) {
   ];
   return (
     <div className="m-8">
-      <div className="flex flex-wrap space-x-3 justify-start">
+      <div className="flex flex-wrap md:space-x-3 space-y-2 md:space-y-0 justify-start">
         <DropDown
           placeholder="Roles"
           options={rolesOptions}
