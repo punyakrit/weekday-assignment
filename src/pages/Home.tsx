@@ -10,12 +10,18 @@ function Home() {
   const [hasMore, setHasMore] = useState(true);
   const [companyNameFilter, setCompanyNameFilter] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
+  const [minExp , setMinExp] = useState("")
 
-console.log(selectedRole)
+console.log(minExp)
 
   const handleRoleChange = (selectedRole: any) => {
     // Update the selected role state
     setSelectedRole(selectedRole);
+  };
+
+  const handleExpChange = (minExp: any) => {
+    // Update the selected role state
+    setMinExp(minExp);
   };
 
   // Array of company names
@@ -66,12 +72,14 @@ console.log(selectedRole)
       <SearchBar
         onCompanyNameChange={setCompanyNameFilter}
         onRoleChange={handleRoleChange}
+        onExpChange={handleExpChange}
       />
       <div className="flex flex-wrap px-4 2xl:px-[400px] pt-10">
         {/* Mapping over api data */}
         {data
           
           .filter(job => selectedRole.length === 0 || selectedRole.includes(job.jobRole))
+          .filter(job => minExp === "" || parseInt(minExp) <= parseInt(job.minExp))
           .map((job, index) => (
             <Card
               key={index}

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import DropDown from "./ui/DropDown";
 
-function SearchBar({onCompanyNameChange, onRoleChange}:any) {
+function SearchBar({onCompanyNameChange, onRoleChange, onExpChange}:any) {
   const [companyName, setCompanyName] = useState("");
 
   const handleFilterChange = (filters: any) => {
@@ -13,12 +13,16 @@ function SearchBar({onCompanyNameChange, onRoleChange}:any) {
     onRoleChange(selectedRole.map((role: { value: any; }) => role.value)); 
 // Access the value property directly
   };
-
-  const handleCompanyNameChange = (event: { target: { value: any; }; }) => {
-    const { value } = event.target;
-    setCompanyName(value);
-    onCompanyNameChange(value);
+  const handleExpChange = (selectedExp: any) => {
+    onExpChange(selectedExp.map((role: { value: any; }) => role.value));
+     // Pass selected experience value to parent component
   };
+
+  // const handleCompanyNameChange = (event: { target: { value: any; }; }) => {
+  //   const { value } = event.target;
+  //   setCompanyName(value);
+  //   onCompanyNameChange(value);
+  // };
   // Define options for each dropdown
   const rolesOptions = [
     { value: "tech lead", label: "tech lead" },
@@ -83,7 +87,7 @@ function SearchBar({onCompanyNameChange, onRoleChange}:any) {
         <DropDown
           placeholder="Experience"
           options={experienceOptions}
-          onFilterChange={handleFilterChange}
+          onFilterChange={handleExpChange}
         />
         <DropDown
           placeholder="Remote"
@@ -100,7 +104,7 @@ function SearchBar({onCompanyNameChange, onRoleChange}:any) {
         Company Name
         <input
         value={companyName}
-        onChange={handleCompanyNameChange}
+        // onChange={handleCompanyNameChange}
           placeholder="Search Company Name"
           className="border w-min border-gray-300 text-md p-1 rounded-md"
         ></input>
