@@ -35,7 +35,6 @@ function Home() {
     // Receive input value from SearchBar
     setCompanyName(value);
   };
-  console.log(companyName);
 
   // Array of company names
   const companyNames = ["Amazon", "Google", "Meta", "WeekDay", "Netflix"];
@@ -79,6 +78,41 @@ function Home() {
       });
   };
 
+  // Filtered data based on search criteria
+  const filteredData = data
+    .filter((job) => {
+      if (work.includes("remote")) {
+        return job.location === "remote";
+      } else if (work.includes("Hybrid")) {
+        return true;
+      } else if (work.includes("In-office")) {
+        return job.location !== "remote";
+      } else {
+        return work.length === 0 || work.includes(job.location);
+      }
+    })
+    .filter(
+      (job) =>
+        selectedRole.length == 0 || selectedRole.includes(job.jobRole)
+    )
+    .filter(
+      (job) => minExp.length == 0 || parseInt(minExp) <= parseInt(job.minExp)
+    )
+    .filter(
+      (job) =>
+        minBasePay.length == 0 ||
+        parseInt(minBasePay) <= parseInt(job.maxJdSalary)
+    )
+    // .filter((job) => {
+    //   if (companyName !== "") {
+    //     return companyNames.some((name) =>
+    //       job.nameC &&
+    //       job.nameC.toLowerCase().includes(name.toLowerCase())
+    //     );
+    //   }
+    //   return true;
+    // });
+
   return (
     <div className="h-full w-full ">
       {/* Searchbar component */}
@@ -89,54 +123,23 @@ function Home() {
         onWork={handleWork}
         onCompanyNameChange={handleCompanyNameChange}
       />
+      <div className="text-xl px-8">
+        Total jobs:<span className="font-medium">{filteredData.length}</span> 
+      </div>
       <div className="flex flex-wrap px-4 2xl:px-[400px] pt-10">
-        {/* Mapping over api data */}
-        {data
-          .filter((job) => {
-            if (work.includes("remote")) {
-              return job.location === "remote";
-            } else if (work.includes("Hybrid")) {
-              return true;
-            } else if (work.includes("In-office")) {
-              return job.location !== "remote";
-            } else {
-              return work.length === 0 || work.includes(job.location);
-            }
-          })
-          .filter(
-            (job) =>
-              selectedRole.length == 0 || selectedRole.includes(job.jobRole)
-          )
-          .filter(
-            (job) =>
-              minExp.length == 0 || parseInt(minExp) <= parseInt(job.minExp)
-          )
-          .filter(
-            (job) =>
-              minBasePay.length == 0 ||
-              parseInt(minBasePay) <= parseInt(job.maxJdSalary)
-          )
-          // .filter((job) => {
-          //   if (companyName !== "") {
-          //     return companyNames.some((name) =>
-          //       job.nameC &&
-          //       job.nameC.toLowerCase().includes(name.toLowerCase())
-          //     );
-          //   }
-          //   return true;
-          // })
-          .map((job, index) => (
-            <Card
-              key={index}
-              nameC={companyNames[index % companyNames.length]} // Use companyNames array cyclically
-              role={job.jobRole}
-              location={job.location}
-              salary={job.maxJdSalary}
-              details={job.jobDetailsFromCompany}
-              link={job.jdLink}
-              expYear={job.minExp}
-            />
-          ))}
+        {/* Mapping over filtered data */}
+        {filteredData.map((job, index) => (
+          <Card
+            key={index}
+            nameC={companyNames[index % companyNames.length]} // Use companyNames array cyclically
+            role={job.jobRole}
+            location={job.location}
+            salary={job.maxJdSalary}
+            details={job.jobDetailsFromCompany}
+            link={job.jdLink}
+            expYear={job.minExp}
+          />
+        ))}
       </div>
 
       {loading && <div>Loading...</div>}
