@@ -116,7 +116,7 @@ const handleBasePayChange = (minBasePay: any) => {
               salary={job.maxJdSalary}
               details={job.jobDetailsFromCompany}
               link={job.jdLink}
-              expYear={job.minExp || 0}
+              expYear={job.minExp}
             />
           ))}
       </div>

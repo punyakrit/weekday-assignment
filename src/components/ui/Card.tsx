@@ -52,10 +52,18 @@ function Card({ role, location, salary, details, link, expYear, nameC }: any) {
             </div>
           </a>
         </div>
-        <div className="text-sm font-medium pt-4 text-gray-500">
-          Minimum Experience
+        <div>
+          {expYear !== null ? (
+            <div>
+              <div className="text-sm font-medium pt-4 text-gray-500">
+                Minimum Experience
+              </div>
+              <div>{expYear}</div>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
-        <div>{expYear}</div>
         <a href={link} target="_blank">
           <div className="flex items-center  bg-[#54efc3] justify-center font-medium text-xl py-3 mt-3 rounded-xl">
             <Zap className="text-yellow-500 mr-3" /> Easy Apply
