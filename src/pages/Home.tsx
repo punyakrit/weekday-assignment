@@ -8,6 +8,16 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [companyNameFilter, setCompanyNameFilter] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
+
+  const handleRoleChange = (selectedRole: any) => {
+    // Update the selected role state
+    setSelectedRole(selectedRole);
+  };
+
+  // Array of company names
+  const companyNames = ["Amazon", "Google", "Meta", "WeekDay", "Netflix"];
 
   useEffect(() => {
     loadData();
@@ -47,25 +57,38 @@ function Home() {
         setLoading(false);
       });
   };
-  // console.log(data)
 
   return (
     <div className="h-full w-full ">
       {/* Searchbar component */}
-      <SearchBar />
-      <div className="flex flex-wrap px-4 pt-10">
+      <SearchBar
+        onCompanyNameChange={setCompanyNameFilter}
+        onRoleChange={handleRoleChange}
+      />
+      <div className="flex flex-wrap px-4 2xl:px-[400px] pt-10">
         {/* Mapping over api data */}
-        {data.map((job, index) => (
-          <Card
-            key={index}
-            role={job.jobRole}
-            location={job.location}
-            salary={job.maxJdSalary}
-            details={job.jobDetailsFromCompany}
-            link={job.jdLink}
-            expYear={job.minExp || 0}
-          />
-        ))}
+        {data
+          // .filter(
+          //   (job) =>
+          //     companyNameFilter === "" ||
+          //     (job.companyName &&
+          //       job.companyName
+          //         .toLowerCase()
+          //         .includes(companyNameFilter.toLowerCase()))
+          // )
+          // .filter((job) => selectedRole === "" || job.jobRole === selectedRole)
+          .map((job, index) => (
+            <Card
+              key={index}
+              nameC={companyNames[index % companyNames.length]} // Use companyNames array cyclically
+              role={job.jobRole}
+              location={job.location}
+              salary={job.maxJdSalary}
+              details={job.jobDetailsFromCompany}
+              link={job.jdLink}
+              expYear={job.minExp || 0}
+            />
+          ))}
       </div>
 
       {loading && <div>Loading...</div>}

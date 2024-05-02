@@ -1,4 +1,7 @@
+import { Zap } from "lucide-react";
 import logo from "../../assets/logo.webp";
+import p1 from "../../assets/p1.jpg";
+import p2 from "../../assets/p2.jpeg";
 
 //  determining user salary range
 function formatSalaryRange(salary: number): string {
@@ -11,11 +14,11 @@ function formatSalaryRange(salary: number): string {
   }
 }
 
-function Card({ role, location, salary, details, link, expYear }: any) {
+function Card({ role, location, salary, details, link, expYear, nameC }: any) {
   const formattedSalary = formatSalaryRange(salary);
 
   return (
-    <div className="w-full md:w-1/3 p-4">
+    <div className="w-full md:w-1/2 lg:w-1/3 md:p-4">
       <div className="border rounded-3xl hover:scale-105 transform duration-500 p-6 shadow-md ">
         <div className="border w-max shadow-md p-2 text-xs rounded-full">
           ⏳ Posted 10 days ago
@@ -25,7 +28,7 @@ function Card({ role, location, salary, details, link, expYear }: any) {
             <img src={logo} className="w-10 rounded-full" alt="Company Logo" />
           </div>
           <div className="ml-3">
-            <div className="text-gray-500 text-sm">WeekDay</div>
+            <div className="text-gray-500 text-sm">{nameC}</div>
             <div>{role}</div>
             <div className="text-xs">{location}</div>
           </div>
@@ -40,7 +43,7 @@ function Card({ role, location, salary, details, link, expYear }: any) {
           <div className="text-sm font-extralight  ">
             {details.slice(0, details.length / 2)}
             <div className="blur-sm select-none">
-            {details.slice(details.length/1.2)}
+              {details.slice(details.length / 1.2)}
             </div>
           </div>
           <a href={link} target="_blank" className="">
@@ -53,6 +56,23 @@ function Card({ role, location, salary, details, link, expYear }: any) {
           Minimum Experience
         </div>
         <div>{expYear}</div>
+        <a href={link} target="_blank">
+          <div className="flex items-center  bg-[#54efc3] justify-center font-medium text-xl py-3 mt-3 rounded-xl">
+            <Zap className="text-yellow-500 mr-3" /> Easy Apply
+          </div>
+        </a>
+
+        <div className="flex cursor-pointer items-center text-white  bg-[#4943db] justify-center font-light text-xl py-3 mt-3 rounded-xl">
+          <img
+            src={p1}
+            className="w-8 rounded-full h-8 object-cover mr-3 blur-sm"
+          ></img>
+          <img
+            src={p2}
+            className="w-8 rounded-full h-8 object-cover mr-3 blur-sm"
+          ></img>
+          Unlock referral ask
+        </div>
       </div>
     </div>
   );

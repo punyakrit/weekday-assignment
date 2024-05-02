@@ -1,11 +1,22 @@
 // SearchBar.js
+import { useState } from "react";
 import DropDown from "./ui/DropDown";
 
-function SearchBar() {
-  const handleFilterChange = (filters: any) => {
-    
-    console.log(filters)
+function SearchBar({onCompanyNameChange, onRoleChange}:any) {
+  const [companyName, setCompanyName] = useState("");
 
+  const handleFilterChange = (filters: any) => {
+    console.log(filters);
+  };
+  const handleRoleChange = (selectedRole: any) => {
+    // Call the callback function passed from Home component
+    onRoleChange(selectedRole);
+  };
+
+  const handleCompanyNameChange = (event: { target: { value: any; }; }) => {
+    const { value } = event.target;
+    setCompanyName(value);
+    onCompanyNameChange(value);
   };
   // Define options for each dropdown
   const rolesOptions = [
@@ -61,7 +72,7 @@ function SearchBar() {
         <DropDown
           placeholder="Roles"
           options={rolesOptions}
-          onFilterChange={handleFilterChange}
+          onFilterChange={handleRoleChange}
         />
         <DropDown
           placeholder="Number Of Employees"
@@ -83,6 +94,15 @@ function SearchBar() {
           onFilterChange={handleFilterChange}
           options={salaryOptions}
         />
+      </div>
+      <div className="flex flex-col">
+        Company Name
+        <input
+        value={companyName}
+        onChange={handleCompanyNameChange}
+          placeholder="Search Company Name"
+          className="border w-min border-gray-300 text-md p-1 rounded-md"
+        ></input>
       </div>
     </div>
   );
