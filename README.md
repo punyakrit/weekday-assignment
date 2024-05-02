@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# WeekDay Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a web application for searching job listings fetched from an API. Users can filter job listings based on various criteria such as job role, experience level, and location.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search for job listings based on job role, experience level, and location.
+- Pagination support for loading more job listings.
+- Dynamic filtering based on user-selected criteria.
+- Responsive design for optimal viewing on different devices.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React.js
+- Axios (for API requests)
+- Tailwind CSS (for styling)
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Clone this repository to your local machine:
+
+``` 
+https://github.com/punyakrit/weekday-assignment 
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Navigate into the project directory:
+
+``` 
+cd weekday-assignment/ 
+```
+
+3. Install dependencies using npm
+``` 
+npm install
+```
+
+4. Start the development server:
+``` 
+npm run dev
+```
+
+# Deployment
+This project can be deployed to platforms like Netlify, Vercel, or GitHub Pages for live demonstration.
+
+
+# Credits
+This project was created as part of an assignment. Credits to the developers involved.
