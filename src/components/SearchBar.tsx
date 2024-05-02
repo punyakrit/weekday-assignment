@@ -1,7 +1,15 @@
 // SearchBar.js
+import { useState } from "react";
 import DropDown from "./ui/DropDown";
 
-function SearchBar({ onRoleChange, onExpChange, onBasePay, onWork }: any) {
+function SearchBar({
+  onRoleChange,
+  onExpChange,
+  onBasePay,
+  onWork,
+  onCompanyNameChange,
+}: any) {
+  const [companyName, setCompanyName] = useState("");
 
   const handleBasePayChange = (selectedBasePay: any) => {
     onBasePay(selectedBasePay.map((role: { value: any }) => role.value));
@@ -22,11 +30,13 @@ function SearchBar({ onRoleChange, onExpChange, onBasePay, onWork }: any) {
     onExpChange(selectedExp.map((role: { value: any }) => role.value));
   };
 
-  // const handleCompanyNameChange = (event: { target: { value: any; }; }) => {
-  //   const { value } = event.target;
-  //   setCompanyName(value);
-  //   onCompanyNameChange(value);
-  // };
+  const handleCompanyNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = event.target;
+    setCompanyName(value);
+    onCompanyNameChange(value);
+  };
   // Define options for each dropdown
   const rolesOptions = [
     { value: "tech lead", label: "tech lead" },
@@ -107,7 +117,8 @@ function SearchBar({ onRoleChange, onExpChange, onBasePay, onWork }: any) {
       <div className="flex flex-col">
         Company Name
         <input
-          // onChange={handleCompanyNameChange}
+          onChange={handleCompanyNameChange}
+          value={companyName}
           placeholder="Search Company Name"
           className="border w-min border-gray-300 text-md p-1 rounded-md"
         ></input>

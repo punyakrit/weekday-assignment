@@ -16,12 +16,13 @@ function formatSalaryRange(salary: number): string {
 
 function Card({ role, location, salary, details, link, expYear, nameC }: any) {
   const formattedSalary = formatSalaryRange(salary);
+  const daysAgo = Math.floor(Math.random() * 10) + 1;
 
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 md:p-4">
       <div className="border rounded-3xl hover:scale-105 transform duration-500 p-6 shadow-md ">
         <div className="border w-max shadow-md p-2 text-xs rounded-full">
-          ⏳ Posted 10 days ago
+          ⏳ Posted {daysAgo} days ago
         </div>
         <div className="my-4 flex">
           <div>
