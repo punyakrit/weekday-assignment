@@ -19,7 +19,7 @@ function Card({ role, location, salary, details, link, expYear, nameC }: any) {
   const daysAgo = Math.floor(Math.random() * 10) + 1;
 
   return (
-    <div className="w-full md:w-1/2 lg:w-1/3 md:p-4">
+    <div className="w-full md:w-1/2 lg:w-1/3 md:p-4 py-2">
       <div className="border rounded-3xl hover:scale-105 transform duration-500 p-6 shadow-md ">
         <div className="border w-max shadow-md p-2 text-xs rounded-full">
           ⏳ Posted {daysAgo} days ago
