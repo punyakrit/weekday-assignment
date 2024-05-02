@@ -2,6 +2,11 @@
 import DropDown from "./ui/DropDown";
 
 function SearchBar() {
+  const handleFilterChange = (filters: any) => {
+    
+    console.log(filters)
+
+  };
   // Define options for each dropdown
   const rolesOptions = [
     { value: "tech lead", label: "tech lead" },
@@ -19,8 +24,6 @@ function SearchBar() {
     { value: "101-200", label: "101-200" },
     { value: "201-500", label: "201-500" },
     { value: "500+", label: "500+" },
-
-
   ];
 
   const experienceOptions = [
@@ -40,7 +43,6 @@ function SearchBar() {
     { value: "Remote", label: "Remote" },
     { value: "Hybrid", label: "Hybrid" },
     { value: "In-office", label: "In-office" },
-
   ];
 
   const salaryOptions = [
@@ -53,19 +55,32 @@ function SearchBar() {
     { value: "60L", label: "60L" },
     { value: "70L", label: "70L" },
   ];
-
   return (
     <div className="m-8">
       <div className="flex flex-wrap space-x-3 justify-start">
-        <DropDown placeholder="Roles" options={rolesOptions} />
+        <DropDown
+          placeholder="Roles"
+          options={rolesOptions}
+          onFilterChange={handleFilterChange}
+        />
         <DropDown
           placeholder="Number Of Employees"
           options={employeesOptions}
+          onFilterChange={handleFilterChange}
         />
-        <DropDown placeholder="Experience" options={experienceOptions} />
-        <DropDown placeholder="Remote" options={remoteOptions} />
+        <DropDown
+          placeholder="Experience"
+          options={experienceOptions}
+          onFilterChange={handleFilterChange}
+        />
+        <DropDown
+          placeholder="Remote"
+          options={remoteOptions}
+          onFilterChange={handleFilterChange}
+        />
         <DropDown
           placeholder="Minimum Base Pay Salary"
+          onFilterChange={handleFilterChange}
           options={salaryOptions}
         />
       </div>

@@ -2,28 +2,52 @@ import { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import axios from "axios";
 import Card from "../components/ui/Card";
-import { RotateCcwIcon } from "lucide-react";
-
 
 function Home() {
-  
-  const [show, setShow] = useState(10)
   const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
   useEffect(() => {
+    loadData();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop ===
+          document.documentElement.offsetHeight &&
+        !loading &&
+        hasMore
+      ) {
+        loadData();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loading, hasMore]);
+
+  const loadData = () => {
+    setLoading(true);
     axios
-      .post("https://api.weekday.technology/adhoc/getSampleJdJSON", {
-        limit: show,
-        offset: 0,
+      .post(`https://api.weekday.technology/adhoc/getSampleJdJSON`, {
+        limit: 10,
+        offset: (page - 1) * 10,
       })
-      .then((res) => setData(res.data.jdList));
-  }, [show]);
-  console.log(data);
-
-  function handleIncrease(){
-    setShow(show+10)
-  }
-
- 
+      .then((res) => {
+        setData((prevData) => [...prevData, ...res.data.jdList]);
+        setLoading(false);
+        setPage((prevPage) => prevPage + 1);
+        setHasMore(res.data.jdList.length > 0);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  };
+  // console.log(data)
 
   return (
     <div className="h-full w-full ">
@@ -44,9 +68,8 @@ function Home() {
         ))}
       </div>
 
-      <div onClick={handleIncrease} className="flex items-center justify-center font-bold cursor-pointer text-xl py-4 mb-8">
-        <RotateCcwIcon className="mr-4" /> Load More
-      </div>
+      {loading && <div>Loading...</div>}
+      {!loading && !hasMore && <div>No more data</div>}
     </div>
   );
 }
