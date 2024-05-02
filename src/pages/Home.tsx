@@ -8,11 +8,16 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [companyNameFilter, setCompanyNameFilter] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [minExp , setMinExp] = useState("")
+  const [minBasePay, setMinBasePay] = useState("");
 
-console.log(minExp)
+
+
+
+const handleBasePayChange = (minBasePay: any) => {
+  setMinBasePay(minBasePay);
+};
 
   const handleRoleChange = (selectedRole: any) => {
     // Update the selected role state
@@ -20,9 +25,12 @@ console.log(minExp)
   };
 
   const handleExpChange = (minExp: any) => {
-    // Update the selected role state
     setMinExp(minExp);
   };
+
+
+  console.log(minBasePay)
+
 
   // Array of company names
   const companyNames = ["Amazon", "Google", "Meta", "WeekDay", "Netflix"];
@@ -70,9 +78,9 @@ console.log(minExp)
     <div className="h-full w-full ">
       {/* Searchbar component */}
       <SearchBar
-        onCompanyNameChange={setCompanyNameFilter}
         onRoleChange={handleRoleChange}
         onExpChange={handleExpChange}
+        onBasePay={handleBasePayChange}
       />
       <div className="flex flex-wrap px-4 2xl:px-[400px] pt-10">
         {/* Mapping over api data */}
@@ -80,6 +88,7 @@ console.log(minExp)
           
           .filter(job => selectedRole.length === 0 || selectedRole.includes(job.jobRole))
           .filter(job => minExp === "" || parseInt(minExp) <= parseInt(job.minExp))
+          .filter(job => minBasePay === "" || parseInt(minBasePay) <= parseInt(job.maxJdSalary))
           .map((job, index) => (
             <Card
               key={index}

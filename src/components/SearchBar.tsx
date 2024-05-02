@@ -1,21 +1,28 @@
 // SearchBar.js
-import { useState } from "react";
 import DropDown from "./ui/DropDown";
 
-function SearchBar({onCompanyNameChange, onRoleChange, onExpChange}:any) {
-  const [companyName, setCompanyName] = useState("");
+function SearchBar({
+  onRoleChange,
+  onExpChange,
+  onBasePay,
+}: any) {
+
+  const handleBasePayChange = (selectedBasePay: any) => {
+
+    onBasePay(selectedBasePay.map((role: { value: any }) => role.value))
+
+  };
 
   const handleFilterChange = (filters: any) => {
-    
     console.log(filters.value);
   };
   const handleRoleChange = (selectedRole: any) => {
-    onRoleChange(selectedRole.map((role: { value: any; }) => role.value)); 
-// Access the value property directly
+    onRoleChange(selectedRole.map((role: { value: any }) => role.value));
+    // Access the value property directly
   };
   const handleExpChange = (selectedExp: any) => {
-    onExpChange(selectedExp.map((role: { value: any; }) => role.value));
-     // Pass selected experience value to parent component
+    onExpChange(selectedExp.map((role: { value: any }) => role.value));
+    // Pass selected experience value to parent component
   };
 
   // const handleCompanyNameChange = (event: { target: { value: any; }; }) => {
@@ -62,14 +69,14 @@ function SearchBar({onCompanyNameChange, onRoleChange, onExpChange}:any) {
   ];
 
   const salaryOptions = [
-    { value: "0L", label: "0L" },
-    { value: "10L", label: "10L" },
-    { value: "20L", label: "20L" },
-    { value: "30L", label: "30L" },
-    { value: "40L", label: "40L" },
-    { value: "50L", label: "50L" },
-    { value: "60L", label: "60L" },
-    { value: "70L", label: "70L" },
+    { value: "0", label: "0L" },
+    { value: "10", label: "10L" },
+    { value: "20", label: "20L" },
+    { value: "30", label: "30L" },
+    { value: "40", label: "40L" },
+    { value: "50", label: "50L" },
+    { value: "60", label: "60L" },
+    { value: "70", label: "70L" },
   ];
   return (
     <div className="m-8">
@@ -96,15 +103,14 @@ function SearchBar({onCompanyNameChange, onRoleChange, onExpChange}:any) {
         />
         <DropDown
           placeholder="Minimum Base Pay Salary"
-          onFilterChange={handleFilterChange}
+          onFilterChange={handleBasePayChange}
           options={salaryOptions}
         />
       </div>
       <div className="flex flex-col">
         Company Name
         <input
-        value={companyName}
-        // onChange={handleCompanyNameChange}
+          // onChange={handleCompanyNameChange}
           placeholder="Search Company Name"
           className="border w-min border-gray-300 text-md p-1 rounded-md"
         ></input>
