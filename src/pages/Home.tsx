@@ -11,8 +11,12 @@ function Home() {
   const [selectedRole, setSelectedRole] = useState("");
   const [minExp , setMinExp] = useState("")
   const [minBasePay, setMinBasePay] = useState("");
+  const [work, setWork] = useState("");
 
 
+  const handleWork = (work: any) => {
+    setWork(work);
+  };
 
 
 const handleBasePayChange = (minBasePay: any) => {
@@ -29,7 +33,7 @@ const handleBasePayChange = (minBasePay: any) => {
   };
 
 
-  console.log(minBasePay)
+  console.log(work)
 
 
   // Array of company names
@@ -81,14 +85,28 @@ const handleBasePayChange = (minBasePay: any) => {
         onRoleChange={handleRoleChange}
         onExpChange={handleExpChange}
         onBasePay={handleBasePayChange}
+        onWork={handleWork}
       />
       <div className="flex flex-wrap px-4 2xl:px-[400px] pt-10">
         {/* Mapping over api data */}
         {data
-          
-          .filter(job => selectedRole.length === 0 || selectedRole.includes(job.jobRole))
-          .filter(job => minExp === "" || parseInt(minExp) <= parseInt(job.minExp))
-          .filter(job => minBasePay === "" || parseInt(minBasePay) <= parseInt(job.maxJdSalary))
+          .filter((job) => {
+            if (work.includes("remote")) {
+              return job.location === "remote";
+            } 
+            else if(work.includes("Hybrid")) {
+              return true
+            }   
+            else if(work.includes("In-office")) {
+              return job.location !== "remote";
+            }          
+            else {
+              return work.length === 0 || work.includes(job.location);
+            }
+          })
+          .filter(job => selectedRole.length == 0 || selectedRole.includes(job.jobRole))
+          .filter(job => minExp.length == 0 || parseInt(minExp) <= parseInt(job.minExp))
+          .filter(job => minBasePay.length == 0 || parseInt(minBasePay) <= parseInt(job.maxJdSalary))
           .map((job, index) => (
             <Card
               key={index}

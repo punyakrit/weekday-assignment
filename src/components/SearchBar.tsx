@@ -1,16 +1,14 @@
 // SearchBar.js
 import DropDown from "./ui/DropDown";
 
-function SearchBar({
-  onRoleChange,
-  onExpChange,
-  onBasePay,
-}: any) {
+function SearchBar({ onRoleChange, onExpChange, onBasePay, onWork }: any) {
 
   const handleBasePayChange = (selectedBasePay: any) => {
+    onBasePay(selectedBasePay.map((role: { value: any }) => role.value));
+  };
 
-    onBasePay(selectedBasePay.map((role: { value: any }) => role.value))
-
+  const handleWork = (selectWork: any) => {
+    onWork(selectWork.map((role: { value: any }) => role.value));
   };
 
   const handleFilterChange = (filters: any) => {
@@ -22,7 +20,6 @@ function SearchBar({
   };
   const handleExpChange = (selectedExp: any) => {
     onExpChange(selectedExp.map((role: { value: any }) => role.value));
-    // Pass selected experience value to parent component
   };
 
   // const handleCompanyNameChange = (event: { target: { value: any; }; }) => {
@@ -63,7 +60,7 @@ function SearchBar({
   ];
 
   const remoteOptions = [
-    { value: "Remote", label: "Remote" },
+    { value: "remote", label: "Remote" },
     { value: "Hybrid", label: "Hybrid" },
     { value: "In-office", label: "In-office" },
   ];
@@ -99,7 +96,7 @@ function SearchBar({
         <DropDown
           placeholder="Remote"
           options={remoteOptions}
-          onFilterChange={handleFilterChange}
+          onFilterChange={handleWork}
         />
         <DropDown
           placeholder="Minimum Base Pay Salary"
