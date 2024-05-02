@@ -6,11 +6,12 @@ function SearchBar({onCompanyNameChange, onRoleChange}:any) {
   const [companyName, setCompanyName] = useState("");
 
   const handleFilterChange = (filters: any) => {
-    console.log(filters);
+    
+    console.log(filters.value);
   };
   const handleRoleChange = (selectedRole: any) => {
-    // Call the callback function passed from Home component
-    onRoleChange(selectedRole);
+    onRoleChange(selectedRole.map((role: { value: any; }) => role.value)); 
+// Access the value property directly
   };
 
   const handleCompanyNameChange = (event: { target: { value: any; }; }) => {

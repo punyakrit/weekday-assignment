@@ -11,6 +11,8 @@ function Home() {
   const [companyNameFilter, setCompanyNameFilter] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
 
+console.log(selectedRole)
+
   const handleRoleChange = (selectedRole: any) => {
     // Update the selected role state
     setSelectedRole(selectedRole);
@@ -68,15 +70,8 @@ function Home() {
       <div className="flex flex-wrap px-4 2xl:px-[400px] pt-10">
         {/* Mapping over api data */}
         {data
-          // .filter(
-          //   (job) =>
-          //     companyNameFilter === "" ||
-          //     (job.companyName &&
-          //       job.companyName
-          //         .toLowerCase()
-          //         .includes(companyNameFilter.toLowerCase()))
-          // )
-          // .filter((job) => selectedRole === "" || job.jobRole === selectedRole)
+          
+          .filter(job => selectedRole.length === 0 || selectedRole.includes(job.jobRole))
           .map((job, index) => (
             <Card
               key={index}
